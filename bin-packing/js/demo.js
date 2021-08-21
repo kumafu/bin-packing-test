@@ -132,19 +132,19 @@ Demo = {
   canvas: {
 
     reset: function(width, height) {
-      Demo.el.canvas.width  = width  + 1; // add 1 because we draw boundaries offset by 0.5 in order to pixel align and get crisp boundaries
-      Demo.el.canvas.height = height + 1; // (ditto)
-      Demo.el.draw.clearRect(0, 0, Demo.el.canvas.width, Demo.el.canvas.height);
+      Demo.el.canvas.width  = width * 3  + 1; // add 1 because we draw boundaries offset by 0.5 in order to pixel align and get crisp boundaries
+      Demo.el.canvas.height = height * 3 + 1; // (ditto)
+      Demo.el.draw.clearRect(0, 0, Demo.el.canvas.width * 3, Demo.el.canvas.height * 3);
     },
 
     rect:  function(x, y, w, h, color) {
       Demo.el.draw.fillStyle = color;
-      Demo.el.draw.fillRect(x + 0.5, y + 0.5, w, h);
-      Demo.el.draw.strokeText(w+"x"+h, x+2, y+12);
+      Demo.el.draw.fillRect(x * 3 + 0.5, y * 3 + 0.5, w * 3, h * 3);
+      Demo.el.draw.strokeText(w+"x"+h, x * 3+2, y * 3+12);
     },
 
     stroke: function(x, y, w, h) {
-      Demo.el.draw.strokeRect(x + 0.5, y + 0.5, w, h);
+      Demo.el.draw.strokeRect(x * 3 + 0.5, y * 3 + 0.5, w * 3, h * 3);
     },
 
     blocks: function(blocks) {
