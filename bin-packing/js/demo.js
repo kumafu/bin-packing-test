@@ -140,6 +140,7 @@ Demo = {
     rect:  function(x, y, w, h, color) {
       Demo.el.draw.fillStyle = color;
       Demo.el.draw.fillRect(x * 3 + 0.5, y * 3 + 0.5, w * 3, h * 3);
+      Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
       Demo.el.draw.strokeText(w+"x"+h, x * 3+2, y * 3+12);
     },
 
