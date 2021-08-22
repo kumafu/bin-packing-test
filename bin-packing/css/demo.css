@@ -9,8 +9,8 @@
 #settings .ratio           { clear: both; border: 1px solid #999; padding: 1em; }
 #settings .nofit           { display: none; border: 1px solid red; margin-top: 1em; padding: 1em; }
 
-#packing                   { margin-left: 15em; }
-#canvas                    { background-color: #FBFBFB; }
+#packing                   { }
+#canvas                    { background-color: #ccc; float:  left;}
 #unsupported               { border: 1px solid red; background-color: #FFFFAD; padding: 1em; margin: 1em; }
 
 textarea { resize: none; width: 24em;}

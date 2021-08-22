@@ -25,6 +25,7 @@ Demo = {
       blocks:   $('#blocks'),
       canvas:   $('#canvas')[0],
       size:     $('#size'),
+      zoom:     $('#zoom'),
       sort:     $('#sort'),
       button:   $('#btn_re'),
       color:    $('#color'),
@@ -39,6 +40,7 @@ Demo = {
     Demo.el.blocks.val(Demo.blocks.serialize(Demo.blocks.examples.current()));
     Demo.el.blocks.change(Demo.run);
     Demo.el.size.change(Demo.run);
+    Demo.el.zoom.change(Demo.run);
     Demo.el.sort.change(Demo.run);
     Demo.el.color.change(Demo.run);
     Demo.el.button.click(Demo.run);
@@ -134,53 +136,57 @@ Demo = {
   canvas: {
 
     reset: function(width, height) {
-      Demo.el.canvas.width  = width * 3  + 1; // add 1 because we draw boundaries offset by 0.5 in order to pixel align and get crisp boundaries
-      Demo.el.canvas.height = height * 3 + 1; // (ditto)
-      Demo.el.draw.clearRect(0, 0, Demo.el.canvas.width * 3, Demo.el.canvas.height * 3);
+      let zoom = parseInt(Demo.el.zoom.val());
+
+      Demo.el.canvas.width  = width * zoom  + 1; // add 1 because we draw boundaries offset by 0.5 in order to pixel align and get crisp boundaries
+      Demo.el.canvas.height = height * zoom + 1; // (ditto)
+      Demo.el.draw.clearRect(0, 0, Demo.el.canvas.width * zoom, Demo.el.canvas.height * zoom);
     },
 
-    rect:  function(x, y, w, h, color, name, rate) {
+    rect:  function(x, y, w, h, color, name, rate, zoom) {
 
       Demo.el.draw.fillStyle = color;
-      Demo.el.draw.fillRect(x * 3 + 0.5, y * 3 + 0.5, w * 3, h * 3);
+      Demo.el.draw.fillRect(x * zoom + 0.5, y * zoom + 0.5, w * zoom, h * zoom);
 
       let img = new Image();
       img.src = './img/'+name+'.jpg';
       img.onload = function(){
-        Demo.el.draw.drawImage(img,x * 3 + 0.5, y * 3 + 0.5, w * 3, h * 3);
+        Demo.el.draw.drawImage(img,x * zoom + 0.5, y * zoom + 0.5, w * zoom, h * zoom);
 
         Demo.el.draw.fillStyle = 'rgba(255, 255, 255, 0.7)';
-        Demo.el.draw.fillRect(x * 3 + 0.5, y * 3 + 0.5, 80, 28);
+        Demo.el.draw.fillRect(x * zoom + 0.5, y * zoom + 0.5, 80, 28);
         Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
-        Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * 3+2, y * 3+12);
-        Demo.el.draw.fillText(w+"x"+h, x * 3+2, y * 3+24);
+        Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * zoom+2, y * zoom+12);
+        Demo.el.draw.fillText(w+"x"+h, x * zoom+2, y * zoom+24);
       }
       img.onerror = function(){
         Demo.el.draw.fillStyle = 'rgba(255, 255, 255, 0.7)';
-        Demo.el.draw.fillRect(x * 3 + 0.5, y * 3 + 0.5, 80, 28);
+        Demo.el.draw.fillRect(x * zoom + 0.5, y * zoom + 0.5, 80, 28);
         Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
-        Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * 3+2, y * 3+12);
-        Demo.el.draw.fillText(w+"x"+h, x * 3+2, y * 3+24);
+        Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * zoom+2, y * zoom+12);
+        Demo.el.draw.fillText(w+"x"+h, x * zoom+2, y * zoom+24);
       }
     },
 
-    stroke: function(x, y, w, h) {
-      Demo.el.draw.strokeRect(x * 3 + 0.5, y * 3 + 0.5, w * 3, h * 3);
+    stroke: function(x, y, w, h, zoom) {
+      Demo.el.draw.strokeRect(x * zoom + 0.5, y * zoom + 0.5, w * zoom, h * zoom);
     },
 
     blocks: function(blocks) {
       var n, block;
+      let zoom = parseInt(Demo.el.zoom.val());
       for (n = 0 ; n < blocks.length ; n++) {
         block = blocks[n];
         if (block.fit){
-          Demo.canvas.rect(block.fit.x, block.fit.y, block.w, block.h, Demo.color(n), block.name, block.rate);
+          Demo.canvas.rect(block.fit.x, block.fit.y, block.w, block.h, Demo.color(n), block.name, block.rate, zoom);
         }
       }
     },
     
     boundary: function(node) {
+      let zoom = parseInt(Demo.el.zoom.val());
       if (node) {
-        Demo.canvas.stroke(node.x, node.y, node.w, node.h);
+        Demo.canvas.stroke(node.x, node.y, node.w, node.h, zoom);
         Demo.canvas.boundary(node.down);
         Demo.canvas.boundary(node.right);
       }
