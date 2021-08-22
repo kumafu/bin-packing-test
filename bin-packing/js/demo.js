@@ -26,6 +26,7 @@ Demo = {
       canvas:   $('#canvas')[0],
       size:     $('#size'),
       zoom:     $('#zoom'),
+      label:    $('#label'),
       sort:     $('#sort'),
       button:   $('#btn_re'),
       color:    $('#color'),
@@ -41,6 +42,7 @@ Demo = {
     Demo.el.blocks.change(Demo.run);
     Demo.el.size.change(Demo.run);
     Demo.el.zoom.change(Demo.run);
+    Demo.el.label.change(Demo.run);
     Demo.el.sort.change(Demo.run);
     Demo.el.color.change(Demo.run);
     Demo.el.button.click(Demo.run);
@@ -144,6 +146,17 @@ Demo = {
     },
 
     rect:  function(x, y, w, h, color, name, rate, zoom) {
+      let label = Demo.el.label.val();
+      let label_mode = 1;
+      switch(label){
+        case "Name+Size":
+          label_mode = 1;
+          break;
+        case "None":
+          label_mode = 0;
+          break;
+
+      }
 
       Demo.el.draw.fillStyle = color;
       Demo.el.draw.fillRect(x * zoom + 0.5, y * zoom + 0.5, w * zoom, h * zoom);
@@ -153,18 +166,22 @@ Demo = {
       img.onload = function(){
         Demo.el.draw.drawImage(img,x * zoom + 0.5, y * zoom + 0.5, w * zoom, h * zoom);
 
-        Demo.el.draw.fillStyle = 'rgba(255, 255, 255, 0.7)';
-        Demo.el.draw.fillRect(x * zoom + 0.5, y * zoom + 0.5, 80, 28);
-        Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
-        Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * zoom+2, y * zoom+12);
-        Demo.el.draw.fillText(w+"x"+h, x * zoom+2, y * zoom+24);
+        if (label_mode == 1){
+          Demo.el.draw.fillStyle = 'rgba(255, 255, 255, 0.7)';
+          Demo.el.draw.fillRect(x * zoom + 0.5, y * zoom + 0.5, 80, 28);
+          Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
+          Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * zoom+2, y * zoom+12);
+          Demo.el.draw.fillText(w+"x"+h, x * zoom+2, y * zoom+24);
+        }
       }
       img.onerror = function(){
-        Demo.el.draw.fillStyle = 'rgba(255, 255, 255, 0.7)';
-        Demo.el.draw.fillRect(x * zoom + 0.5, y * zoom + 0.5, 80, 28);
-        Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
-        Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * zoom+2, y * zoom+12);
-        Demo.el.draw.fillText(w+"x"+h, x * zoom+2, y * zoom+24);
+        if (label_mode == 1){
+          Demo.el.draw.fillStyle = 'rgba(255, 255, 255, 0.7)';
+          Demo.el.draw.fillRect(x * zoom + 0.5, y * zoom + 0.5, 80, 28);
+          Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
+          Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * zoom+2, y * zoom+12);
+          Demo.el.draw.fillText(w+"x"+h, x * zoom+2, y * zoom+24);
+        }
       }
     },
 
