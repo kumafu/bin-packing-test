@@ -139,11 +139,12 @@ Demo = {
       Demo.el.draw.clearRect(0, 0, Demo.el.canvas.width * 3, Demo.el.canvas.height * 3);
     },
 
-    rect:  function(x, y, w, h, color) {
+    rect:  function(x, y, w, h, color, name, rate) {
       Demo.el.draw.fillStyle = color;
       Demo.el.draw.fillRect(x * 3 + 0.5, y * 3 + 0.5, w * 3, h * 3);
       Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
-      Demo.el.draw.fillText(w+"x"+h, x * 3+2, y * 3+12);
+      Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * 3+2, y * 3+12);
+      Demo.el.draw.fillText(w+"x"+h, x * 3+2, y * 3+24);
     },
 
     stroke: function(x, y, w, h) {
@@ -155,7 +156,7 @@ Demo = {
       for (n = 0 ; n < blocks.length ; n++) {
         block = blocks[n];
         if (block.fit){
-          Demo.canvas.rect(block.fit.x, block.fit.y, block.w, block.h, Demo.color(n));
+          Demo.canvas.rect(block.fit.x, block.fit.y, block.w, block.h, Demo.color(n), block.name, block.rate);
         }
       }
     },
@@ -206,10 +207,11 @@ Demo = {
       var expanded = [];
       for(i = 0 ; i < result.length ; i++) {
         let r = Math.random() * (result[i].r_max - result[i].r_min) + result[i].r_min;
+        //r = Math.round(r*100)/100.0;
         console.log(r);
-        let rw = result[i].w * r;
-        let rh = result[i].h * r;
-        expanded.push({w: rw, h: rh, area: rw * rh});
+        let rw = Math.round(result[i].w * r * 100)/100.0;
+        let rh = Math.round(result[i].h * r * 100)/100.0;
+        expanded.push({name: result[i].name, rate:r, w: rw, h: rh, area: rw * rh});
       }
       console.log(expanded);
       return expanded;
