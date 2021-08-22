@@ -16,6 +16,9 @@
 
 *******************************************************************************/
 
+var g_packer;
+var g_blocks;
+
 Demo = {
 
   init: function() {
@@ -41,8 +44,8 @@ Demo = {
     Demo.el.blocks.val(Demo.blocks.serialize(Demo.blocks.examples.current()));
     Demo.el.blocks.change(Demo.run);
     Demo.el.size.change(Demo.run);
-    Demo.el.zoom.change(Demo.run);
-    Demo.el.label.change(Demo.run);
+    Demo.el.zoom.change(Demo.redraw);
+    Demo.el.label.change(Demo.redraw);
     Demo.el.sort.change(Demo.run);
     Demo.el.color.change(Demo.run);
     Demo.el.button.click(Demo.run);
@@ -57,19 +60,30 @@ Demo = {
 
   //---------------------------------------------------------------------------
 
+  redraw: function() {
+
+    Demo.canvas.reset(g_packer.root.w, g_packer.root.h);
+    Demo.canvas.blocks(g_blocks);
+    Demo.canvas.boundary(g_packer.root);
+    Demo.report(g_blocks, g_packer.root.w, g_packer.root.h);
+  },
+
+
+  //---------------------------------------------------------------------------
+
   run: function() {
 
-    var blocks = Demo.blocks.deserialize(Demo.el.blocks.val());
-    var packer = Demo.packer();
+    g_blocks = Demo.blocks.deserialize(Demo.el.blocks.val());
+    g_packer = Demo.packer();
 
-    Demo.sort.now(blocks);
+    Demo.sort.now(g_blocks);
 
-    packer.fit(blocks);
+    g_packer.fit(g_blocks);
 
-    Demo.canvas.reset(packer.root.w, packer.root.h);
-    Demo.canvas.blocks(blocks);
-    Demo.canvas.boundary(packer.root);
-    Demo.report(blocks, packer.root.w, packer.root.h);
+    Demo.canvas.reset(g_packer.root.w, g_packer.root.h);
+    Demo.canvas.blocks(g_blocks);
+    Demo.canvas.boundary(g_packer.root);
+    Demo.report(g_blocks, g_packer.root.w, g_packer.root.h);
   },
 
   //---------------------------------------------------------------------------
