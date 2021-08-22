@@ -233,7 +233,7 @@ Demo = {
       sample: [
         { name:"Poster1", w: 50, h: 20, r_min:  0.8 , r_max: 1.2},
         { name:"Poster2", w: 40, h: 20, r_min:  0.8 , r_max: 1.2},
-        { name:"Poster3", w: 30, h: 20, r_min:  0.8 , r_max: 1.2},
+        { name:"Poster3", w: 30, h: 20, r_min:  [0.8,1.2] , r_max: null},
         { name:"Note1", w: 20, h: 20, r_min:  0.8 , r_max: 1.2},
       ],
 
@@ -248,19 +248,31 @@ Demo = {
     },
 
     deserialize: function(val) {
-      var i, j, block, size, rate, blocks = val.split("\n"), result = [];
+      var i, j, block, size, rate, type, blocks = val.split("\n"), result = [];
       for(i = 0 ; i < blocks.length ; i++) {
         block = blocks[i].split(",");
         if (block.length == 3){
           size = block[1].split("x");
           rate = block[2].split("-");
-          result.push({name: block[0], w: parseInt(size[0]), h: parseInt(size[1]), r_min: parseFloat(rate[0]), r_max: parseFloat(rate[1])});
+          type = 0;
+          if (rate.length != 2){
+            rate = block[2].split("/");
+            result.push({name: block[0], w: parseInt(size[0]), h: parseInt(size[1]), r_min: rate, r_max: null});
+          }else{
+            result.push({name: block[0], w: parseInt(size[0]), h: parseInt(size[1]), r_min: parseFloat(rate[0]), r_max: parseFloat(rate[1])});
+          }
         }
       }
       console.log(result);
       var expanded = [];
       for(i = 0 ; i < result.length ; i++) {
-        let r = Math.random() * (result[i].r_max - result[i].r_min) + result[i].r_min;
+        let r;
+        if (result[i].r_max == null){
+          var num = result[i].r_min.length;
+          r = parseFloat(result[i].r_min[Math.floor(Math.random()*num)]);
+        }else{
+          r = Math.random() * (result[i].r_max - result[i].r_min) + result[i].r_min;
+        }
         //r = Math.round(r*100)/100.0;
         console.log(r);
         let rw = Math.round(result[i].w * r * 100)/100.0;
@@ -275,7 +287,16 @@ Demo = {
       var i, block, str = "";
       for(i = 0; i < blocks.length ; i++) {
         block = blocks[i];
-        str = str + block.name + ',' + block.w + "x" + block.h + "," + block.r_min + "-" + block.r_max + "\n";
+        if (block.r_max == null){
+          str = str + block.name + ',' + block.w + "x" + block.h + ",";
+          for (var j in block.r_min){
+            str = str + block.r_min[j] + "/";
+          }
+          str = str.slice(0,-1) + "\n";
+        }
+        else{
+          str = str + block.name + ',' + block.w + "x" + block.h + "," + block.r_min + "-" + block.r_max + "\n";
+        }
       }
       return str;
     }
