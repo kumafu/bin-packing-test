@@ -140,11 +140,28 @@ Demo = {
     },
 
     rect:  function(x, y, w, h, color, name, rate) {
+
       Demo.el.draw.fillStyle = color;
       Demo.el.draw.fillRect(x * 3 + 0.5, y * 3 + 0.5, w * 3, h * 3);
-      Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
-      Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * 3+2, y * 3+12);
-      Demo.el.draw.fillText(w+"x"+h, x * 3+2, y * 3+24);
+
+      let img = new Image();
+      img.src = './img/'+name+'.jpg';
+      img.onload = function(){
+        Demo.el.draw.drawImage(img,x * 3 + 0.5, y * 3 + 0.5, w * 3, h * 3);
+
+        Demo.el.draw.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        Demo.el.draw.fillRect(x * 3 + 0.5, y * 3 + 0.5, 80, 28);
+        Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
+        Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * 3+2, y * 3+12);
+        Demo.el.draw.fillText(w+"x"+h, x * 3+2, y * 3+24);
+      }
+      img.onerror = function(){
+        Demo.el.draw.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        Demo.el.draw.fillRect(x * 3 + 0.5, y * 3 + 0.5, 80, 28);
+        Demo.el.draw.fillStyle = 'rgba(0, 0, 0)';
+        Demo.el.draw.fillText(name+" - "+Math.round(rate*100)/100.0, x * 3+2, y * 3+12);
+        Demo.el.draw.fillText(w+"x"+h, x * 3+2, y * 3+24);
+      }
     },
 
     stroke: function(x, y, w, h) {
