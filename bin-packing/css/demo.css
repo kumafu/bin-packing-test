@@ -1,5 +1,5 @@
 
-#settings                  { width: 12em; padding: 1em; display: inline-block; float: left; border: 1px solid #999; background-color: #EEE; }
+#settings                  { width: 24em; padding: 1em; display: inline-block; float: left; border: 1px solid #999; background-color: #EEE; }
 #settings .examples        { margin-bottom: 1em; }
 #settings .blocks          { }
 #settings .blocks .example { color: #999; font-style: italic; float: right; margin-right: 1em; }
@@ -13,7 +13,7 @@
 #canvas                    { background-color: #FBFBFB; }
 #unsupported               { border: 1px solid red; background-color: #FFFFAD; padding: 1em; margin: 1em; }
 
-textarea { resize: none; }
+textarea { resize: none; width: 24em;}
 select   { width: 8em;   }
 
 
