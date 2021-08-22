@@ -108,7 +108,7 @@ Demo = {
       if (block.fit)
         fit = fit + block.area;
       else
-        nofit.push("" + block.w + "x" + block.h);
+        nofit.push("" + block.name + "("+block.w + "x" + block.h+")");
     }
     Demo.el.ratio.text(Math.round(100 * fit / (w * h)));
     Demo.el.nofit.html("Did not fit (" + nofit.length + ") :<br>" + nofit.join(", ")).toggle(nofit.length > 0);
