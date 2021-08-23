@@ -16,7 +16,7 @@
 
 *******************************************************************************/
 
-var placedRects;
+var returnRects;
 var g_blocks;
 var area;
 
@@ -63,8 +63,7 @@ Demo = {
 
   redraw: function() {
     Demo.canvas.reset(area.x*2, area.y*2);
-    Demo.canvas.blocks(placedRects);
-    //Demo.report(g_blocks, g_packer.root.w, g_packer.root.h);
+    Demo.canvas.blocks(returnRects[0]);
   },
 
 
