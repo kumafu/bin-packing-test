@@ -1,0 +1,21 @@
+
+#settings                  { width: 24em; padding: 1em; display: inline-block; float: left; border: 1px solid #999; background-color: #EEE; }
+#settings .examples        { margin-bottom: 1em; }
+#settings .blocks          { }
+#settings .blocks .example { color: #999; font-style: italic; float: right; margin-right: 1em; }
+#settings .size            { float: right; }
+#settings .sort            { float: right; }
+#settings .color           { float: right; margin-bottom: 1em; }
+#settings .zoom            { clear: both; float: left; }
+#settings .label           { clear: both; float: left; }
+#settings .ratio           { clear: both; border: 1px solid #999; padding: 1em; }
+#settings .nofit           { display: none; border: 1px solid red; margin-top: 1em; padding: 1em; }
+
+#packing                   { }
+#canvas                    { background-color: #ccc; float:  left;}
+#unsupported               { border: 1px solid red; background-color: #FFFFAD; padding: 1em; margin: 1em; }
+
+textarea { resize: none; width: 24em;}
+select   { width: 8em;   }
+
+

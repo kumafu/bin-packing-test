@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>Bin Packing Algorithm</title>
+  <link href='css/demo.css' rel='stylesheet' type='text/css' media='screen' />
+</head>
+<body>
+
+  <h1>Bin Packing Algorithm</h1>
+
+  <div id="settings">
+
+    <div class='examples'>
+      <label for='examples'>Examples: </label>
+      <select id='examples'>
+        <option value='sample'>   sample        </option>
+      </select>
+    </div>
+
+      
+    <div class='blocks'>
+      <label for='blocks'>Blocks: <span class='example'><b>"name",WxH,R_min-R_max</b></span></label>
+      <textarea id='blocks' rows=12></textarea>
+    </div>
+
+    <div class='button'>
+      <button id='btn_re'>Re-calculate</button>
+    </div>
+
+    <div class='zoom'>
+      <label for='zoom'>zoom: </label>
+      <select id='zoom'>
+        <option selected>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+      </select>
+    </div>
+    
+    <div class='size'>
+      <label for='size'>size: </label>
+      <select id='size'>
+        <option selected>210x297</option>
+        <option>2100x2970</option>
+        <option>automatic</option>
+      </select>
+    </div>
+
+
+    <div class='label'>
+      <label for='label'>label: </label>
+      <select id='label'>
+        <option selected>Name+Size</option>
+        <option>None</option>
+      </select>
+    </div>
+
+    <div class='sort'>
+      <label for='sort'>sort: </label>
+      <select id='sort'>
+        <option>none</option>
+        <option selected>area</option>
+        <option>random</option>
+      </select>
+    </div>
+
+    <div class='color'>
+      <label for='color'>color: </label>
+      <select id='color'>
+        <option>pastel</option>
+        <option>basic</option>
+        <option>gray</option>
+        <option>vintage</option>
+        <option>solarized</option>
+        <option>none</option>
+      </select>
+    </div>
+
+    <div class="ratio">
+      Filled: <span id='ratio'>0</span>%
+    </div>
+
+    <div id="nofit" class="nofit">
+    </div>
+
+  </div>
+
+  <div id="packing">
+    <canvas id="canvas">
+      <div id="unsupported">
+        Sorry, this example cannot be run because your browser does not support the &lt;canvas&gt; element
+      </div>
+    </canvas>
+  </div>
+
+  <script src='js/jquery.js'>        </script>
+  <script src='js/demo.js'>          </script>
+  <script src='js/binpacking.js'>          </script>
+
+</body>
+</html>
+
