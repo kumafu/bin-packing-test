@@ -252,6 +252,7 @@ Demo = {
       for(i = 0 ; i < blocks.length ; i++) {
         block = blocks[i].split(",");
         if (block.length == 3){
+          if (block[0].startsWith("*")) continue;
           size = block[1].split("x");
           rate = block[2].split("-");
           type = 0;
